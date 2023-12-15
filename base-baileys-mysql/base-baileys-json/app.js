@@ -48,14 +48,20 @@ const flowDiscord = addKeyword(['discord']).addAnswer(
     [flowSecundario]
 )
 
-const flowPrincipal = addKeyword(['hola', 'ole', 'alo'])
-    .addAnswer('🙌 Hola bienvenido a este *Chatbot*')
+const flowPrincipal = addKeyword(['Hola', 'Buena noches', 'Buenos días', 'Buenos dias', 'Buenas tardes',
+    'Buen día', 'Buen dia', 'buena noche','Buena tarde'])
+    .addAnswer('🙌 Hola bienvenido a *Importadora Pro|Machines*')
     .addAnswer(
         [
-            'te comparto los siguientes links de interes sobre el proyecto',
-            '👉 *doc* para ver la documentación',
-            '👉 *gracias*  para ver la lista de videos',
-            '👉 *discord* unirte al discord',
+            'Gracias por contactarnos en un momento respondemos tu requerimiento. ',
+            '',
+            '🏭 CENTRO COMERCIAL QUITUS LOCAL # 415 PASILLO 6, SEGUNDO PISO',
+            '',
+            '🕚HORARIOS DE ATENCIÓN 🕔 LUNES A  SÁBADO 10 am- 17:30pm',
+            '',
+            'Echale un ojo a nuestro catálogo 👀👇🏻👇🏻👇🏻',
+            '',
+            'https://wa.me/c/593986654694'
         ],
         null,
         null,
