@@ -125,6 +125,7 @@ web_modules/
 .yarn-integrity
 
 # dotenv environment variable files
+base-baileys-json/.env
 .env
 .env.development.local
 .env.test.local
