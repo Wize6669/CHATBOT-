@@ -8,8 +8,14 @@ const home = async (req, res) => {
     res.status(200).send("Home");
 };
 const chatWoodHook = async (req, res) => {
+    const providerWhatSapp = req.providerWhatSapp;
     const body = req.body;
-    console.log(body);
+    if(body?.private) {
+        res.send(null);
+        return;
+    }
+    const phone = body?.conversation?.meta?.sender?.phone_number.replace('+', '');
+    await providerWhatSapp.sendText(`${phone}@c.us`, body.content);
     res.status(200).send(body);
 };
 

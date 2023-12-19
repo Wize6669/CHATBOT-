@@ -4,6 +4,7 @@ const QRPortalWeb = require('@bot-whatsapp/portal')
 const BaileysProvider = require('@bot-whatsapp/provider/baileys')
 const JsonFileAdapter = require('@bot-whatsapp/database/json')
 const ServerHttp = require("./http");
+const {sendMessageChatWood} = require("./services/chatwood");
 
 const flowSecundario = addKeyword(['2', 'siguiente']).addAnswer(['📄 Aquí tenemos el flujo secundario'])
 
@@ -29,18 +30,13 @@ const flowTuto = addKeyword(['tutorial', 'tuto']).addAnswer(
     [flowSecundario]
 )
 
-const flowGracias = addKeyword(['gracias', 'grac']).addAnswer(
-    [
-        '🚀 Puedes aportar tu granito de arena a este proyecto',
-        '[*opencollective*] https://opencollective.com/bot-whatsapp',
-        '[*buymeacoffee*] https://www.buymeacoffee.com/leifermendez',
-        '[*patreon*] https://www.patreon.com/leifermendez',
-        '\n*2* Para siguiente paso.',
-    ],
-    null,
-    null,
-    [flowSecundario]
-)
+const flowGracias = addKeyword(['gracias', 'grac']).addAction(
+    async (ctx, {flowDynamic}) => {
+        const message = "*Gracias*";
+        await sendMessageChatWood(message, 'incoming');
+        await flowDynamic(message);
+    }
+);
 
 const flowDiscord = addKeyword(['discord']).addAnswer(
     ['🤪 Únete al discord', 'https://link.codigoencasa.com/DISCORD', '\n*2* Para siguiente paso.'],
@@ -70,17 +66,17 @@ const flowPrincipal = addKeyword(['Hola', 'Buena noches', 'Buenos días', 'Bueno
     )
 
 const main = async () => {
-    const server = new ServerHttp();
     const adapterDB = new JsonFileAdapter()
     const adapterFlow = createFlow([flowPrincipal])
     const adapterProvider = createProvider(BaileysProvider)
+    const server = new ServerHttp(adapterProvider);
 
     createBot({
         flow: adapterFlow,
         provider: adapterProvider,
         database: adapterDB,
     })
-
+    console.log(process.env.CHATWOOT_TOKEN);
     QRPortalWeb();
     server.start();
 }
